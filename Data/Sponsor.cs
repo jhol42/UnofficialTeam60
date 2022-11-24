@@ -36,7 +36,11 @@ namespace KingmanAzFrcTeam60.Data
         {
             try
             {
-                Sponsors = await client.GetFromJsonAsync<Sponsor[]>("/OurSponsors");
+                var localDir = System.IO.Directory.GetCurrentDirectory();
+                //Sponsors = await client.GetFromJsonAsync<Sponsor[]>("/OurSponsors");
+                var path = Path.Combine(localDir, "wwwroot", "Sponsors2.json");
+                var sponsorsFile = new FileStream(path, FileMode.Open, FileAccess.Read);
+                Sponsors = await JsonSerializer.DeserializeAsync<Sponsor[]>(sponsorsFile);
                 if (Sponsors != null)
                 {
                     Array.Sort(Sponsors, (lh, rh) => String.Compare(lh.BusinessName, rh.BusinessName));
