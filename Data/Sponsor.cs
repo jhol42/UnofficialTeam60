@@ -1,23 +1,14 @@
 ﻿using ServiceStack;
+using System.Collections.Immutable;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace KingmanAzFrcTeam60.Data
 {
-
-    public class SponsorYears
+    public class SponsorsList
     {
-        [JsonPropertyName("Years")]
-        public SponsorYear[]? Years { get; set; }
-    }
-
-    public class SponsorYear
-    {
-        [JsonPropertyName("year")] 
-        public string? Year { get; set; }
-
         [JsonPropertyName("sponsors")]
-        public Sponsor[]? Sponsors { get; set; }
+        public Sponsor[]? Sponsors;
     }
 
     public class Sponsor
@@ -27,18 +18,31 @@ namespace KingmanAzFrcTeam60.Data
 
         [JsonPropertyName("website")]
         public string? Website { get; set; }
+
+        [JsonPropertyName("years")]
+        public int[]? Years { get; set; }
+
+        public string AllYears => Years.Join(",");
+
+        public string GetWebsite => Website == null ? "" : Website == "null" ? "" : Website;
+
     }
+
 
     public class SponorsSource
     {
-        public SponsorYears? Sponsors = null;
+        public Sponsor[]? Sponsors = null;
         public async Task PopulateSponsors(HttpClient client)
         {
             try
             {
-                Sponsors = await client.GetFromJsonAsync<SponsorYears>("/OurSponsors");
+                Sponsors = await client.GetFromJsonAsync<Sponsor[]>("/OurSponsors");
+                if (Sponsors != null)
+                {
+                    Array.Sort(Sponsors, (lh, rh) => String.Compare(lh.BusinessName, rh.BusinessName));
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.Error.WriteLine(ex.ToString());
             }

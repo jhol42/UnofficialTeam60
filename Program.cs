@@ -31,6 +31,8 @@ app.UseRouting();
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
+
+// Added this line to add api controllers.
 app.MapDefaultControllerRoute();
 
 app.Run();

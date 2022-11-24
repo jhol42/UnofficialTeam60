@@ -8,38 +8,40 @@
 <h1>Sponsors</h1>
 
 <body>
-
-@if(SponsorsList == null || SponsorsList.Years == null)
+    <RadzenDataGrid Data="@OurSponsors" TIItem="Sponsor">
+        <Columns>
+            <RadzenDataGridColumn TItem="Sponsor" Property="BusinessName" Title="Sponsor"  />
+            <RadzenDataGridColumn TItem="Sponsor" Property="GetWebsite" Title="Website" />
+            <RadzenDataGridColumn TItem="Sponsor" Property="AllYears" Title="Years" />
+        </Columns>
+    </RadzenDataGrid>
+@*    @if (OurSponsors == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
-    @foreach (var sponsorYear in SponsorsList.Years)
+    @foreach (var sponsor in OurSponsors)
     {
-        @sponsorYear.Year;
-        if (sponsorYear.Sponsors != null){
-            @foreach(var sponsor in sponsorYear.Sponsors)
-            {
-                <tr>
-                    <td>@sponsor.BusinessName</td>
-                </tr>
-            }
-        }
+        <tr>
+            <td>@sponsor.BusinessName</td>
+            <td>@sponsor.Website</td>
+            <td>@sponsor.GetYears()</td>
+        </tr>
     }
-}
+}*@
 
 </body>
 
 @code{
-    private SponsorYears? SponsorsList;
+    private Sponsor[]? OurSponsors;
 
     protected override async Task OnInitializedAsync()
     {
         var client = ClientFactory.CreateClient();
         client.BaseAddress = new Uri("https://localhost:44398/");
         await SponorsSource.PopulateSponsors(client);
-        SponsorsList = SponorsSource.Sponsors;
+        OurSponsors = SponorsSource.Sponsors;
     }
 }
 

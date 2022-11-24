@@ -13,7 +13,7 @@ namespace KingmanAzFrcTeam60.Controllers
         public string Get()
         {
             var path = Path.GetFullPath("wwwroot");
-            var str = System.IO.File.ReadAllText(Path.Combine(path, "Sponsors.json"));
+            var str = System.IO.File.ReadAllText(Path.Combine(path, "Sponsors2.json"));
             
             return str;
         }
