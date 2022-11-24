@@ -1,6 +1,7 @@
 using KingmanAzFrcTeam60.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using ServiceStack;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddSingleton<SponorsSource>();
+builder.Services.AddControllersWithViews();
+builder.Services.AddHttpClient();
 
 var app = builder.Build();
 
@@ -27,5 +31,6 @@ app.UseRouting();
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
+app.MapDefaultControllerRoute();
 
 app.Run();

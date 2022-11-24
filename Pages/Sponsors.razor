@@ -1,0 +1,46 @@
+﻿@page "/sponsors"
+@using KingmanAzFrcTeam60.Data
+@inject SponorsSource SponorsSource
+@inject IHttpClientFactory ClientFactory
+
+<PageTitle>Sponsors</PageTitle>
+
+<h1>Sponsors</h1>
+
+<body>
+
+@if(SponsorsList == null || SponsorsList.Years == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    @foreach (var sponsorYear in SponsorsList.Years)
+    {
+        @sponsorYear.Year;
+        if (sponsorYear.Sponsors != null){
+            @foreach(var sponsor in sponsorYear.Sponsors)
+            {
+                <tr>
+                    <td>@sponsor.BusinessName</td>
+                </tr>
+            }
+        }
+    }
+}
+
+</body>
+
+@code{
+    private SponsorYears? SponsorsList;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var client = ClientFactory.CreateClient();
+        client.BaseAddress = new Uri("https://localhost:44398/");
+        await SponorsSource.PopulateSponsors(client);
+        SponsorsList = SponorsSource.Sponsors;
+    }
+}
+
+
