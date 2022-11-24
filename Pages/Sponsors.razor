@@ -15,22 +15,6 @@
             <RadzenDataGridColumn TItem="Sponsor" Property="AllYears" Title="Years" />
         </Columns>
     </RadzenDataGrid>
-@*    @if (OurSponsors == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    @foreach (var sponsor in OurSponsors)
-    {
-        <tr>
-            <td>@sponsor.BusinessName</td>
-            <td>@sponsor.Website</td>
-            <td>@sponsor.GetYears()</td>
-        </tr>
-    }
-}*@
-
 </body>
 
 @code{
