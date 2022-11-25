@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Net.Http.Json;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace KingmanAzFrcTeam60.Data
@@ -30,14 +31,12 @@ namespace KingmanAzFrcTeam60.Data
     public class SponorsSource
     {
         public Sponsor[]? Sponsors = null;
-        public async Task PopulateSponsors()
+        public async Task PopulateSponsors(HttpClient client)
         {
             try
             {
-                var localDir = System.IO.Directory.GetCurrentDirectory();
-                var path = Path.Combine(localDir, "wwwroot", "Sponsors2.json");
-                var sponsorsFile = new FileStream(path, FileMode.Open, FileAccess.Read);
-                Sponsors = await JsonSerializer.DeserializeAsync<Sponsor[]>(sponsorsFile);
+                Sponsors = await client.GetFromJsonAsync<Sponsor[]>("Sponsors2.json");
+
                 if (Sponsors != null)
                 {
                     Array.Sort(Sponsors, (lh, rh) => String.Compare(lh.BusinessName, rh.BusinessName));

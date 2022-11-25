@@ -1,0 +1,34 @@
+﻿@page "/sponsors"
+@using KingmanAzFrcTeam60.Data
+@inject SponorsSource SponorsSource
+@inject HttpClient client;
+<PageTitle>Sponsors</PageTitle>
+
+<h1>Sponsors</h1>
+
+<body>
+    <RadzenDataGrid Data="@OurSponsors" TIItem="Sponsor" AllowColumnResize="true">
+        <Columns>
+            <RadzenDataGridColumn TItem="Sponsor" Property="BusinessName" Title="Sponsor"  />
+            <RadzenDataGridColumn TItem="Sponsor" Property="GetWebsite" Title="Website">
+                <Template Context="data">
+                    <a href="@(data.Website)">@(data.Website)</a>
+                </Template>
+
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="Sponsor" Property="AllYears" Title="Years" />
+        </Columns>
+    </RadzenDataGrid>
+</body>
+
+@code{
+    private Sponsor[]? OurSponsors;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await SponorsSource.PopulateSponsors(client);
+        OurSponsors = SponorsSource.Sponsors;
+    }
+}
+
+
