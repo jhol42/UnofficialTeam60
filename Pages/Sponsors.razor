@@ -10,7 +10,12 @@
     <RadzenDataGrid Data="@OurSponsors" TIItem="Sponsor" AllowColumnResize="true">
         <Columns>
             <RadzenDataGridColumn TItem="Sponsor" Property="BusinessName" Title="Sponsor"  />
-            <RadzenDataGridColumn TItem="Sponsor" Property="GetWebsite" Title="Website" />
+            <RadzenDataGridColumn TItem="Sponsor" Property="GetWebsite" Title="Website">
+                <Template Context="data">
+                    <a href="@(data.Website)">@(data.Website)</a>
+                </Template>
+
+            </RadzenDataGridColumn>
             <RadzenDataGridColumn TItem="Sponsor" Property="AllYears" Title="Years" />
         </Columns>
     </RadzenDataGrid>
