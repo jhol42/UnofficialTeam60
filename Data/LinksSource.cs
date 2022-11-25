@@ -5,17 +5,25 @@ namespace KingmanAzFrcTeam60.Data
 {
     public class Link
     {
-        public Link(string name, string url) 
-        { 
+        public Link(string name, string url)
+        {
             Name = name;
             Url = url;
         }
 
         [JsonPropertyName("name")]
-
         public string Name { get; set; }
         [JsonPropertyName("url")]
         public string Url { get; set; }
+
+        public string HRef
+        {
+            get
+            {
+                var str = String.Format("<a href=\"{0}\">{0}</a>", Url);
+                return str;
+            }
+        }
     }
 
     public class LinksSource

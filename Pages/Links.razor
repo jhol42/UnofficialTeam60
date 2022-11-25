@@ -5,16 +5,21 @@
 <h3>Links</h3>
 
 <body>
-    <RadzenDataGrid Data="@OurLinks" TIItem="Links">
+    <RadzenDataGrid Data="@OurLinks" TIItem="Link" AllowSorting="true">
         <Columns>
-            <RadzenDataGridColumn TItem="Link" Property="Name" Title="Link" />
-            <RadzenDataGridColumn TItem="Link" Property="Url" Title="URL" />
+            <RadzenDataGridColumn TItem="Link" Property="Name" Title="Name" />
+            <RadzenDataGridColumn TItem="Link" Property="Url" Title="Link">
+                <Template Context="data">
+                    <a href="@(data.Url)">@(data.Url)</a>
+                </Template>
+            </RadzenDataGridColumn>
         </Columns>
     </RadzenDataGrid>
 </body>
 
 @code {
     private Link[]? OurLinks;
+    //private Link data;
 
     protected override async Task OnInitializedAsync()
     {
