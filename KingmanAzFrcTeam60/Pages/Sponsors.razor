@@ -7,18 +7,24 @@
 <h1>Sponsors</h1>
 
 <body>
+    <div id="SponsorsDataGrid">
     <RadzenDataGrid Data="@OurSponsors" TIItem="Sponsor" AllowColumnResize="true">
         <Columns>
-            <RadzenDataGridColumn TItem="Sponsor" Property="BusinessName" Title="Sponsor"  />
+            <RadzenDataGridColumn TItem="Sponsor" Property="BusinessName" Title="Sponsor">
+                <Template Context="data">
+                        <p style="white-space:pre-wrap">@(data.BusinessName)</p>
+                </Template>
+            </RadzenDataGridColumn>
             <RadzenDataGridColumn TItem="Sponsor" Property="GetWebsite" Title="Website">
                 <Template Context="data">
                     <a href="@(data.Website)">@(data.Website)</a>
                 </Template>
 
             </RadzenDataGridColumn>
-            <RadzenDataGridColumn TItem="Sponsor" Property="AllYears" Title="Years" />
+            <RadzenDataGridColumn TItem="Sponsor" Property="AllYears" Title="Years"/>
         </Columns>
     </RadzenDataGrid>
+    </div>
 </body>
 
 @code{
