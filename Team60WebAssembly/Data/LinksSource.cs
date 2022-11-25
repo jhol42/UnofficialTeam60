@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Net.Http.Json;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace KingmanAzFrcTeam60.Data
@@ -30,14 +31,11 @@ namespace KingmanAzFrcTeam60.Data
     {
         public Link[]? Links { get; set; }
 
-        public async Task PopulateLinks()
+        public async Task PopulateLinks(HttpClient client)
         {
             try
             {
-                var localDir = System.IO.Directory.GetCurrentDirectory();
-                var path = Path.Combine(localDir, "wwwroot", "Links.json");
-                var linksFile = new FileStream(path, FileMode.Open, FileAccess.Read);
-                Links = await JsonSerializer.DeserializeAsync<Link[]>(linksFile);
+                Links = await client.GetFromJsonAsync<Link[]>("Links.json");
             }
             catch (Exception ex)
             {
