@@ -1,0 +1,25 @@
+﻿@page "/links"
+@using KingmanAzFrcTeam60.Data
+@inject LinksSource LinksSource
+
+<h3>Links</h3>
+
+<body>
+    <RadzenDataGrid Data="@OurLinks" TIItem="Links">
+        <Columns>
+            <RadzenDataGridColumn TItem="Link" Property="Name" Title="Link" />
+            <RadzenDataGridColumn TItem="Link" Property="Url" Title="URL" />
+        </Columns>
+    </RadzenDataGrid>
+</body>
+
+@code {
+    private Link[]? OurLinks;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LinksSource.PopulateLinks();
+        OurLinks = LinksSource.Links;
+    }
+}
+

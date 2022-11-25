@@ -32,12 +32,11 @@ namespace KingmanAzFrcTeam60.Data
     public class SponorsSource
     {
         public Sponsor[]? Sponsors = null;
-        public async Task PopulateSponsors(HttpClient client)
+        public async Task PopulateSponsors()
         {
             try
             {
                 var localDir = System.IO.Directory.GetCurrentDirectory();
-                //Sponsors = await client.GetFromJsonAsync<Sponsor[]>("/OurSponsors");
                 var path = Path.Combine(localDir, "wwwroot", "Sponsors2.json");
                 var sponsorsFile = new FileStream(path, FileMode.Open, FileAccess.Read);
                 Sponsors = await JsonSerializer.DeserializeAsync<Sponsor[]>(sponsorsFile);

@@ -1,7 +1,6 @@
 ﻿@page "/sponsors"
 @using KingmanAzFrcTeam60.Data
 @inject SponorsSource SponorsSource
-@inject IHttpClientFactory ClientFactory
 
 <PageTitle>Sponsors</PageTitle>
 
@@ -22,9 +21,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var client = ClientFactory.CreateClient();
-        client.BaseAddress = new Uri("https://localhost:7226/");
-        await SponorsSource.PopulateSponsors(client);
+        await SponorsSource.PopulateSponsors();
         OurSponsors = SponorsSource.Sponsors;
     }
 }
