@@ -4,18 +4,43 @@
 @inject HttpClient client
 
 <h3>Links</h3>
+<head>
+    <style>
+        .table {
+            border-collapse: collapse;
+            border: 1px solid #666;
+        }
+
+        .table th {
+            border: solid 1px #666;
+            word-wrap: break-word;
+        }
+
+        .table td{
+                border: solid 1px #666;
+                word-wrap: break-word;
+            }
+    </style>
+</head>
 
 <body>
-    <RadzenDataGrid Data="@OurLinks" TIItem="Link" AllowSorting="true">
-        <Columns>
-            <RadzenDataGridColumn TItem="Link" Property="Name" Title="Name" />
-            <RadzenDataGridColumn TItem="Link" Property="Url" Title="Link">
-                <Template Context="data">
-                    <a href="@(data.Url)">@(data.Url)</a>
-                </Template>
-            </RadzenDataGridColumn>
-        </Columns>
-    </RadzenDataGrid>
+    @if (OurLinks != null)
+    {
+        <table class="table">
+            <tr>
+                <th>Name</th>
+                <th>Website</th>
+            </tr>
+
+            @foreach (var item in OurLinks)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td><a href="@item.Url">@item.Url</a></td>
+                </tr>
+            }
+        </table>
+    }
 </body>
 
 @code {

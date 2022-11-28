@@ -1,24 +1,54 @@
 ﻿@page "/sponsors"
 @using KingmanAzFrcTeam60.Data
 @inject SponorsSource SponorsSource
-@inject HttpClient client;
+@inject HttpClient client
 <PageTitle>Sponsors</PageTitle>
 
 <h1>Sponsors</h1>
 
-<body>
-    <RadzenDataGrid Data="@OurSponsors" TIItem="Sponsor" AllowColumnResize="true">
-        <Columns>
-            <RadzenDataGridColumn TItem="Sponsor" Property="BusinessName" Title="Sponsor"  />
-            <RadzenDataGridColumn TItem="Sponsor" Property="GetWebsite" Title="Website">
-                <Template Context="data">
-                    <a href="@(data.Website)">@(data.Website)</a>
-                </Template>
+<head>
+    <style>
+        .table {
+            border-collapse: collapse;
+            border: 1px solid #666;
+        }
 
-            </RadzenDataGridColumn>
-            <RadzenDataGridColumn TItem="Sponsor" Property="AllYears" Title="Years" />
-        </Columns>
-    </RadzenDataGrid>
+        .table th {
+            border: solid 1px #666;
+            word-wrap: break-word;
+        }
+
+        .table td{
+                border: solid 1px #666;
+                word-wrap: break-word;
+            }
+    </style>
+</head>
+
+<body>
+    @if (OurSponsors != null)
+    {
+        <table class="table">
+            <tr>
+                <th>Sponsor</th>
+                <th>Website</th>
+                <th>Years</th>
+            </tr>
+
+            @foreach (var item in OurSponsors)
+            {
+                <tr>
+                    <td>
+                        <div style="word-wrap: break-word;">
+                        @item.BusinessName
+                        </div>
+                    </td>
+                    <td><a href="@item.Website">@item.Website</a></td>
+                    <td>@item.AllYears</td>
+                </tr>
+            }
+        </table>
+    }
 </body>
 
 @code{
