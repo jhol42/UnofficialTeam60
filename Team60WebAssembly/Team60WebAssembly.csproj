@@ -27,4 +27,10 @@
     </Content>
   </ItemGroup>
 
+  <PropertyGroup>
+    <BlazorEnableCompression>true</BlazorEnableCompression>
+    <PublishTrimmed>true</PublishTrimmed>
+    <TrimMode>link</TrimMode>  
+  </PropertyGroup>
+
 </Project>
